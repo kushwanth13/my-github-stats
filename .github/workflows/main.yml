@@ -21,18 +21,18 @@ jobs:
     # Sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-    # Run using Python 3.8 for consistency and aiohttp
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+    # Run using Python 3.12 for consistency and aiohttp
+    - name: Set up Python 3
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.8'
+        python-version: '3.12'
         architecture: 'x64'
 
     # Cache dependencies. From:
     # https://github.com/actions/cache/blob/master/examples.md#python---pip
-    - uses: actions/cache@v2
+    - uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
@@ -60,8 +60,8 @@ jobs:
     # Commits all changed files to the repository
     - name: Commit to the repo
       run: |
-        git config --global user.name "kushwanth13/my-github-stats"
-        git config --global user.email "my-github-stats[bot]@kushwanth13.github.io"
+        git config --global user.name "kushwanth13/github-stats"
+        git config --global user.email "github-stats[bot]@kushwanth13.github.io"
         git add .
         # "echo" returns true so the build succeeds, even if no changed files
         git commit -m 'Update generated files' || echo
